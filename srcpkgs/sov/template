@@ -1,0 +1,16 @@
+# Template file for 'sov'
+pkgname=sov
+version=0.87b
+revision=1
+build_style=meson
+hostmakedepends="pkg-config wayland-devel"
+makedepends="wayland-protocols wayland-devel freetype-devel libfreeglut-devel libxkbcommon-devel glew-devel"
+short_desc="Overlay for easy window navigation in sway"
+license="MIT"
+homepage="https://github.com/milgra/sov"
+distfiles="https://github.com/milgra/sov/releases/download/${version}/${pkgname}-${version}.tar.xz"
+checksum=29a960c63b2c55c6863b2f12c54f6b878930eea2ed7e8045335554bc418f3314
+
+post_install() {
+	vlicense LICENSE
+}
