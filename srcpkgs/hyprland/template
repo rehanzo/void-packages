@@ -1,6 +1,6 @@
 # Template file for 'hyprland'
 pkgname=hyprland
-version=0.26.0
+version=0.28.0
 revision=1
 archs="x86_64*"
 short_desc="Hyprland is a highly customizable dynamic tiling Wayland compositor that doesn't sacrifice on its looks."
@@ -12,7 +12,7 @@ depends="xorg-server-xwayland libliftoff libdisplay-info"
 patch_args="-Np1"
 
 do_fetch() {
-  git clone --branch "v${version}" https://github.com/hyprwm/Hyprland ${wrksrc}
+  git clone --branch "main" https://github.com/hyprwm/Hyprland ${wrksrc}
 }
 
 do_build() {
@@ -46,8 +46,13 @@ do_install() {
   vinstall example/hyprland.desktop 644 usr/share/wayland-sessions
   vinstall example/hyprland.conf 644 usr/share/hyprland
   vinstall tmpwlr/lib/libwlroots.so.12032 755 usr/lib
+  vinstall build/hyprland.pc 0644 usr/share/pkgconfig
 
   vcopy assets/*.png usr/share/hyprland
+  vmkdir usr/include/hyprland/protocols
+  vmkdir usr/include/hyprland/src
+  vcopy protocols/*-protocol.h usr/include/hyprland/protocols
+  vcopy src/*.hpp usr/include/hyprland/src
 
   vlicense LICENSE
 }

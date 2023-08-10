@@ -4,7 +4,7 @@ version=0.9.20
 revision=3
 build_style=meson
 configure_args="-Dgtk-layer-shell=enabled -Dlibudev=enabled -Dman-pages=enabled
- -Dsystemd=disabled -Drfkill=enabled
+ -Dsystemd=disabled -Drfkill=enabled -Dexperimental=true
  $(vopt_feature libnl libnl)
  $(vopt_feature pulseaudio pulseaudio)
  $(vopt_feature dbusmenugtk dbusmenu-gtk)
