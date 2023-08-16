@@ -1,0 +1,33 @@
+# Template file for 'xdg-desktop-portal-hyprland'
+pkgname=xdg-desktop-portal-hyprland
+version=0.5.0
+revision=1
+hostmakedepends="pkg-config wayland-devel scdoc cmake make meson ninja"
+makedepends="hyprland-protocols qt6-wayland-devel wayland-devel wayland-protocols elogind-devel pipewire-devel
+ inih-devel libgbm-devel libdrm-devel"
+depends="xdg-desktop-portal"
+short_desc="Backend of xdg-desktop-portal for hyprland"
+maintainer="Isaac Freund <mail@isaacfreund.com>"
+license="MIT"
+homepage="https://github.com/hyprwm/xdg-desktop-portal-hyprland"
+distfiles="https://github.com/hyprwm/xdg-desktop-portal-hyprland/archive/v${version}.tar.gz"
+checksum=d346cbe170e7042d5e364242a715d021d9b8da2078a169771cf84cda13f24e76
+
+do_build() {
+	mkdir -p ${wrksrc}/tmpdir
+	meson build --prefix=${wrksrc}/tmpdir
+	ninja -C build
+	cd hyprland-share-picker && make all && cd ..
+	ninja -C build install
+}
+
+do_install() {
+	vbin hyprland-share-picker/build/hyprland-share-picker
+	vinstall tmpdir/libexec/xdg-desktop-portal-hyprland 755 usr/libexec
+	vmkdir usr/share/xdg-desktop-portal/portals
+	vcopy tmpdir/share/xdg-desktop-portal/portals/hyprland.portal usr/share/xdg-desktop-portal/portals
+}
+
+post_install() {
+	vlicense LICENSE
+}
