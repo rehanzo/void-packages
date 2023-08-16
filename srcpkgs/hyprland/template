@@ -12,7 +12,7 @@ depends="xorg-server-xwayland libliftoff libdisplay-info"
 patch_args="-Np1"
 
 do_fetch() {
-  git clone --branch "main" https://github.com/hyprwm/Hyprland ${wrksrc}
+  git clone --branch "v${version}" https://github.com/hyprwm/Hyprland ${wrksrc}
 }
 
 do_build() {
